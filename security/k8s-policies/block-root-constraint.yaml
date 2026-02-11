@@ -1,0 +1,14 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sPSPMustRunAsNonRoot
+metadata:
+  name: must-run-as-nonroot
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    # Exclude security tools namespaces
+    excludedNamespaces:
+      - "kube-system"
+      - "falco-system"
+      - "gatekeeper-system"
