@@ -1,0 +1,21 @@
+name: DevSecOps Security Scan
+
+on:
+  push:
+    branches: [ main, dev/** ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+    name: Code Security Analysis
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Run Semgrep SAST
+        uses: semgrep/semgrep-action@v1
+        with:
+          config: auto
