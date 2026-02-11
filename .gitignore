@@ -26,3 +26,10 @@ obj/
 pkg/
 release/wi-kubernetes-manifests.yaml
 vendor/
+
+# DevSecOps additions
+security/scans/*.json
+security/scans/*.html
+security/scans/*.sarif
+*.trivy.json
+*.semgrep.json
