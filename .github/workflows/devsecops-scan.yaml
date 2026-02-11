@@ -34,3 +34,10 @@ jobs:
           scan-type: 'fs'
           scan-ref: '.'
           format: 'table'
+      
+      - name: Run Checkov IaC scan
+        uses: bridgecrewio/checkov-action@master
+        continue-on-error: true
+        with:
+          directory: .
+          framework: kubernetes,terraform,dockerfile
