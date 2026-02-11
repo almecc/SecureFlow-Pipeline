@@ -8,6 +8,10 @@ on:
 jobs:
   build-scan-sign:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
     
     steps:
       - name: Checkout code
@@ -30,3 +34,12 @@ jobs:
           image-ref: secureflow/frontend:${{ github.sha }}
           format: 'table'
           exit-code: 0
+      
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@v3
+      
+      - name: Sign container image (keyless)
+        run: |
+          cosign sign --yes secureflow/frontend:${{ github.sha }}
+        env:
+          COSIGN_EXPERIMENTAL: 1
