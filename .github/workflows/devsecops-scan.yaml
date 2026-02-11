@@ -19,3 +19,9 @@ jobs:
         uses: semgrep/semgrep-action@v1
         with:
           config: auto
+      
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
