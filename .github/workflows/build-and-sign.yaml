@@ -1,0 +1,32 @@
+name: Build and Sign Container Images
+
+on:
+  push:
+    branches: [ main, dev/** ]
+  workflow_dispatch:
+
+jobs:
+  build-scan-sign:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      
+      - name: Build frontend image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./src/frontend
+          push: false
+          tags: secureflow/frontend:${{ github.sha }}
+          load: true
+      
+      - name: Scan image with Trivy
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: secureflow/frontend:${{ github.sha }}
+          format: 'table'
+          exit-code: 0
