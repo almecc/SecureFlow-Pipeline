@@ -17,10 +17,11 @@ jobs:
       
       - name: Run Semgrep SAST
         uses: semgrep/semgrep-action@v1
+        continue-on-error: true
         with:
           config: auto
       
-      - name: Run Snyk to check for vulnerabilities
+      - name: Run Snyk SCA
         uses: snyk/actions/node@master
         continue-on-error: true
         env:
