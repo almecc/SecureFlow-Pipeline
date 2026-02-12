@@ -7,8 +7,9 @@ spec:
     kinds:
       - apiGroups: [""]
         kinds: ["Pod"]
-    # Exclude security tools namespaces
+    # Exclude trusted namespaces
     excludedNamespaces:
       - "kube-system"
       - "falco-system"
       - "gatekeeper-system"
+      - "default"  # Demo app namespace
